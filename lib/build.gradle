@@ -82,6 +82,7 @@ ext {
 apply plugin: 'kotlin-android'
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 if (getGradle().getStartParameter().getTaskRequests().toString().contains("release") ||
         getGradle().getStartParameter().getTaskRequests().toString().contains("mavenPublish") ||
