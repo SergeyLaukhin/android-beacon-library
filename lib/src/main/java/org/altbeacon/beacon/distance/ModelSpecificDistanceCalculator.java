@@ -229,34 +229,34 @@ public class ModelSpecificDistanceCalculator implements DistanceCalculator {
             return;
         }
 
-        new ModelSpecificDistanceUpdater(mContext, mRemoteUpdateUrlString,
-                new ModelSpecificDistanceUpdater.CompletionHandler() {
-            @Override
-            public void onComplete(String body, Exception ex, int code) {
-                if (ex != null) {
-                    LogManager.w(TAG, "Cannot updated distance models from online database at %s",
-                            ex, mRemoteUpdateUrlString);
-                }
-                else if (code != 200) {
-                    LogManager.w(TAG, "Cannot updated distance models from online database at %s "
-                            + "due to HTTP status code %s", mRemoteUpdateUrlString, code);
-                }
-                else {
-                    LogManager.d(TAG,
-                            "Successfully downloaded distance models from online database");
-                    try {
-                        buildModelMapWithLock(body);
-                        if (saveJson(body)) {
-                            loadModelMapFromFile();
-                            mDistanceCalculator = findCalculatorForModelWithLock(mRequestedModel);
-                            LogManager.i(TAG, "Successfully updated distance model with latest from online database");
-                        }
-                    } catch (JSONException e) {
-                        LogManager.w(e, TAG, "Cannot parse json from downloaded distance model");
-                    }
-                }
-            }
-        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//        new ModelSpecificDistanceUpdater(mContext, mRemoteUpdateUrlString,
+//                new ModelSpecificDistanceUpdater.CompletionHandler() {
+//            @Override
+//            public void onComplete(String body, Exception ex, int code) {
+//                if (ex != null) {
+//                    LogManager.w(TAG, "Cannot updated distance models from online database at %s",
+//                            ex, mRemoteUpdateUrlString);
+//                }
+//                else if (code != 200) {
+//                    LogManager.w(TAG, "Cannot updated distance models from online database at %s "
+//                            + "due to HTTP status code %s", mRemoteUpdateUrlString, code);
+//                }
+//                else {
+//                    LogManager.d(TAG,
+//                            "Successfully downloaded distance models from online database");
+//                    try {
+//                        buildModelMapWithLock(body);
+//                        if (saveJson(body)) {
+//                            loadModelMapFromFile();
+//                            mDistanceCalculator = findCalculatorForModelWithLock(mRequestedModel);
+//                            LogManager.i(TAG, "Successfully updated distance model with latest from online database");
+//                        }
+//                    } catch (JSONException e) {
+//                        LogManager.w(e, TAG, "Cannot parse json from downloaded distance model");
+//                    }
+//                }
+//            }
+//        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     void buildModelMapWithLock(String jsonString) throws JSONException {
